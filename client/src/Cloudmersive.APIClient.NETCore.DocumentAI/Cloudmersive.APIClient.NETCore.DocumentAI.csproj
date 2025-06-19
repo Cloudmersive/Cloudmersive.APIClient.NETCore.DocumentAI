@@ -8,7 +8,7 @@
     <Authors>Cloudmersive</Authors>
     <Company>Cloudmersive</Company>
     <AssemblyTitle>Cloudmersive Document AI API Client</AssemblyTitle>
-    <Description>Document AI APIs let you use Machine Learning to recognize and process images, and also perform useful image modification operations.</Description>
+    <Description>Document AI APIs let you use AI and Machine Learning to extract data, categories, summaries and insight from free-form text documents.</Description>
     <Copyright>No Copyright</Copyright>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
