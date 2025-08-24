@@ -1,5 +1,11 @@
 ﻿Remove-Item –path ./client –recurse
-& java -jar swagger-codegen-cli-2.4.12.jar generate -i https://api.cloudmersive.com/document-ai/docs/v1/swagger -l csharp -o client -c packageconfig.json
+
+
+Invoke-WebRequest -Uri 'https://api.cloudmersive.com/document-ai/docs/v1/swagger' -OutFile '.\documentai-api-swagger.json'
+(Get-Content .\documentai-api-swagger.json).replace('localhost', "api.cloudmersive.com") | Set-Content .\documentai-api-swagger.json
+(Get-Content .\documentai-api-swagger.json -Raw) -replace '"http"','"https"' | Set-Content .\documentai-api-swagger.json -Encoding UTF8
+
+& java -jar swagger-codegen-cli-2.4.12.jar generate -i .\documentai-api-swagger.json -l csharp -o client -c packageconfig.json
 #(Get-Content ./client/src/api/ConvertDocumentApi.js).replace('var returnType = Object;', "var returnType = 'Blob';") | Set-Content ./client/src/api/ConvertDocumentApi.js
 #(Get-Content ./client/src/api/ConvertWebApi.js).replace('var returnType = Object;', "var returnType = 'Blob';") | Set-Content ./client/src/api/ConvertWebApi.js
 #& npm build ./client
@@ -19,7 +25,7 @@
 (Get-Content '.\client\src\Cloudmersive.APIClient.NETCore.DocumentAI\Client\ApiClient.cs').replace('request.AddFile(param.Value.Name, param.Value.Writer, param.Value.FileName, param.Value.ContentType);', 'request.AddFile(param.Value.Name, param.Value.Writer, param.Value.FileName, param.Value.ContentLength, param.Value.ContentType);') | Set-Content '.\client\src\Cloudmersive.APIClient.NETCore.DocumentAI\Client\ApiClient.cs'
 
 
-(Get-Content ./client/src/Cloudmersive.APIClient.NETCore.DocumentAI/Cloudmersive.APIClient.NETCore.DocumentAI.csproj).replace('</ItemGroup>', '</ItemGroup><Target Name="PostBuild" AfterTargets="PostBuildEvent">    <Exec Command="call powershell C:\CodeSigning\sign.ps1  $(TargetPath)" />  </Target>') | Set-Content ./client/src/Cloudmersive.APIClient.NETCore.DocumentAI/Cloudmersive.APIClient.NETCore.DocumentAI.csproj
+#(Get-Content ./client/src/Cloudmersive.APIClient.NETCore.DocumentAI/Cloudmersive.APIClient.NETCore.DocumentAI.csproj).replace('</ItemGroup>', '</ItemGroup><Target Name="PostBuild" AfterTargets="PostBuildEvent">    <Exec Command="call powershell C:\CodeSigning\sign.ps1  $(TargetPath)" />  </Target>') | Set-Content ./client/src/Cloudmersive.APIClient.NETCore.DocumentAI/Cloudmersive.APIClient.NETCore.DocumentAI.csproj
 
 & dotnet build ./client/src/Cloudmersive.APIClient.NETCore.DocumentAI/Cloudmersive.APIClient.NETCore.DocumentAI.csproj -c Release
 & dotnet pack ./client/src/Cloudmersive.APIClient.NETCore.DocumentAI/Cloudmersive.APIClient.NETCore.DocumentAI.csproj -c Release

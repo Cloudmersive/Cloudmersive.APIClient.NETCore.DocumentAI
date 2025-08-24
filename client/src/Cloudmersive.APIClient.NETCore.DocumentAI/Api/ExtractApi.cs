@@ -71,6 +71,27 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Api
         /// <returns>ApiResponse of ExtractFieldsResponse</returns>
         ApiResponse<ExtractFieldsResponse> ExtractFieldsWithHttpInfo (string fieldNames = null, System.IO.Stream inputFile = null);
         /// <summary>
+        /// Extract Field Values from a Document using Advanced AI
+        /// </summary>
+        /// <remarks>
+        /// Extract Field Values (e.g. Invoice Number, Invoice Date, Business Card Phone Number, etc.) from a document using Advanced AI.  Input document formats supported include DOCX, PDF, PNG and JPG.
+        /// </remarks>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.DocumentAI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">Input request, including document file as byte array, and information on which fields to extract (optional)</param>
+        /// <returns>ExtractFieldsResponse</returns>
+        ExtractFieldsResponse ExtractFieldsAdvanced (AdvancedExtractFieldsRequest body = null);
+
+        /// <summary>
+        /// Extract Field Values from a Document using Advanced AI
+        /// </summary>
+        /// <remarks>
+        /// Extract Field Values (e.g. Invoice Number, Invoice Date, Business Card Phone Number, etc.) from a document using Advanced AI.  Input document formats supported include DOCX, PDF, PNG and JPG.
+        /// </remarks>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.DocumentAI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">Input request, including document file as byte array, and information on which fields to extract (optional)</param>
+        /// <returns>ApiResponse of ExtractFieldsResponse</returns>
+        ApiResponse<ExtractFieldsResponse> ExtractFieldsAdvancedWithHttpInfo (AdvancedExtractFieldsRequest body = null);
+        /// <summary>
         /// Extract Summary from a Document using AI
         /// </summary>
         /// <remarks>
@@ -160,6 +181,27 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Api
         /// <param name="inputFile">Input document, or photos of a document, to extract data from (optional)</param>
         /// <returns>Task of ApiResponse (ExtractFieldsResponse)</returns>
         System.Threading.Tasks.Task<ApiResponse<ExtractFieldsResponse>> ExtractFieldsAsyncWithHttpInfo (string fieldNames = null, System.IO.Stream inputFile = null);
+        /// <summary>
+        /// Extract Field Values from a Document using Advanced AI
+        /// </summary>
+        /// <remarks>
+        /// Extract Field Values (e.g. Invoice Number, Invoice Date, Business Card Phone Number, etc.) from a document using Advanced AI.  Input document formats supported include DOCX, PDF, PNG and JPG.
+        /// </remarks>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.DocumentAI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">Input request, including document file as byte array, and information on which fields to extract (optional)</param>
+        /// <returns>Task of ExtractFieldsResponse</returns>
+        System.Threading.Tasks.Task<ExtractFieldsResponse> ExtractFieldsAdvancedAsync (AdvancedExtractFieldsRequest body = null);
+
+        /// <summary>
+        /// Extract Field Values from a Document using Advanced AI
+        /// </summary>
+        /// <remarks>
+        /// Extract Field Values (e.g. Invoice Number, Invoice Date, Business Card Phone Number, etc.) from a document using Advanced AI.  Input document formats supported include DOCX, PDF, PNG and JPG.
+        /// </remarks>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.DocumentAI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">Input request, including document file as byte array, and information on which fields to extract (optional)</param>
+        /// <returns>Task of ApiResponse (ExtractFieldsResponse)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ExtractFieldsResponse>> ExtractFieldsAdvancedAsyncWithHttpInfo (AdvancedExtractFieldsRequest body = null);
         /// <summary>
         /// Extract Summary from a Document using AI
         /// </summary>
@@ -592,6 +634,167 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Api
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("ExtractFields", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<ExtractFieldsResponse>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Key, x => x.Value.ToString()),
+                (ExtractFieldsResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ExtractFieldsResponse)));
+        }
+
+        /// <summary>
+        /// Extract Field Values from a Document using Advanced AI Extract Field Values (e.g. Invoice Number, Invoice Date, Business Card Phone Number, etc.) from a document using Advanced AI.  Input document formats supported include DOCX, PDF, PNG and JPG.
+        /// </summary>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.DocumentAI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">Input request, including document file as byte array, and information on which fields to extract (optional)</param>
+        /// <returns>ExtractFieldsResponse</returns>
+        public ExtractFieldsResponse ExtractFieldsAdvanced (AdvancedExtractFieldsRequest body = null)
+        {
+             ApiResponse<ExtractFieldsResponse> localVarResponse = ExtractFieldsAdvancedWithHttpInfo(body);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Extract Field Values from a Document using Advanced AI Extract Field Values (e.g. Invoice Number, Invoice Date, Business Card Phone Number, etc.) from a document using Advanced AI.  Input document formats supported include DOCX, PDF, PNG and JPG.
+        /// </summary>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.DocumentAI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">Input request, including document file as byte array, and information on which fields to extract (optional)</param>
+        /// <returns>ApiResponse of ExtractFieldsResponse</returns>
+        public ApiResponse< ExtractFieldsResponse > ExtractFieldsAdvancedWithHttpInfo (AdvancedExtractFieldsRequest body = null)
+        {
+
+            var localVarPath = "./document-ai/document/extract/fields/advanced";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
+
+            // authentication (Apikey) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Apikey")))
+            {
+                localVarHeaderParams["Apikey"] = this.Configuration.GetApiKeyWithPrefix("Apikey");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ExtractFieldsAdvanced", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<ExtractFieldsResponse>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Key, x => x.Value.ToString()),
+                (ExtractFieldsResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ExtractFieldsResponse)));
+        }
+
+        /// <summary>
+        /// Extract Field Values from a Document using Advanced AI Extract Field Values (e.g. Invoice Number, Invoice Date, Business Card Phone Number, etc.) from a document using Advanced AI.  Input document formats supported include DOCX, PDF, PNG and JPG.
+        /// </summary>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.DocumentAI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">Input request, including document file as byte array, and information on which fields to extract (optional)</param>
+        /// <returns>Task of ExtractFieldsResponse</returns>
+        public async System.Threading.Tasks.Task<ExtractFieldsResponse> ExtractFieldsAdvancedAsync (AdvancedExtractFieldsRequest body = null)
+        {
+             ApiResponse<ExtractFieldsResponse> localVarResponse = await ExtractFieldsAdvancedAsyncWithHttpInfo(body);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Extract Field Values from a Document using Advanced AI Extract Field Values (e.g. Invoice Number, Invoice Date, Business Card Phone Number, etc.) from a document using Advanced AI.  Input document formats supported include DOCX, PDF, PNG and JPG.
+        /// </summary>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.DocumentAI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">Input request, including document file as byte array, and information on which fields to extract (optional)</param>
+        /// <returns>Task of ApiResponse (ExtractFieldsResponse)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ExtractFieldsResponse>> ExtractFieldsAdvancedAsyncWithHttpInfo (AdvancedExtractFieldsRequest body = null)
+        {
+
+            var localVarPath = "./document-ai/document/extract/fields/advanced";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
+
+            // authentication (Apikey) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Apikey")))
+            {
+                localVarHeaderParams["Apikey"] = this.Configuration.GetApiKeyWithPrefix("Apikey");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ExtractFieldsAdvanced", localVarResponse);
                 if (exception != null) throw exception;
             }
 
