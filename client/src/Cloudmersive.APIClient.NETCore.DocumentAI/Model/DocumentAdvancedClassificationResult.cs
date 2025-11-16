@@ -23,20 +23,20 @@ using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.DocumentAI.Client.Sw
 namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
 {
     /// <summary>
-    /// Result of extracting fields from a document
+    /// Result of classifying a document using AI
     /// </summary>
     [DataContract]
-    public partial class ExtractFieldsResponse :  IEquatable<ExtractFieldsResponse>
+    public partial class DocumentAdvancedClassificationResult :  IEquatable<DocumentAdvancedClassificationResult>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExtractFieldsResponse" /> class.
+        /// Initializes a new instance of the <see cref="DocumentAdvancedClassificationResult" /> class.
         /// </summary>
         /// <param name="successful">True if successful, false otherwise.</param>
-        /// <param name="results">Field value results from the extraction operation.</param>
-        public ExtractFieldsResponse(bool? successful = default(bool?), List<FieldValue> results = default(List<FieldValue>))
+        /// <param name="documentCategoryResult">Category applied to the document; if a category could not be identified then \&quot;other\&quot; will be used.  Spaces are replaced with underscores..</param>
+        public DocumentAdvancedClassificationResult(bool? successful = default(bool?), string documentCategoryResult = default(string))
         {
             this.Successful = successful;
-            this.Results = results;
+            this.DocumentCategoryResult = documentCategoryResult;
         }
         
         /// <summary>
@@ -47,11 +47,11 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
         public bool? Successful { get; set; }
 
         /// <summary>
-        /// Field value results from the extraction operation
+        /// Category applied to the document; if a category could not be identified then \&quot;other\&quot; will be used.  Spaces are replaced with underscores.
         /// </summary>
-        /// <value>Field value results from the extraction operation</value>
-        [DataMember(Name="Results", EmitDefaultValue=false)]
-        public List<FieldValue> Results { get; set; }
+        /// <value>Category applied to the document; if a category could not be identified then \&quot;other\&quot; will be used.  Spaces are replaced with underscores.</value>
+        [DataMember(Name="DocumentCategoryResult", EmitDefaultValue=false)]
+        public string DocumentCategoryResult { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -60,9 +60,9 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class ExtractFieldsResponse {\n");
+            sb.Append("class DocumentAdvancedClassificationResult {\n");
             sb.Append("  Successful: ").Append(Successful).Append("\n");
-            sb.Append("  Results: ").Append(Results).Append("\n");
+            sb.Append("  DocumentCategoryResult: ").Append(DocumentCategoryResult).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -83,15 +83,15 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as ExtractFieldsResponse);
+            return this.Equals(input as DocumentAdvancedClassificationResult);
         }
 
         /// <summary>
-        /// Returns true if ExtractFieldsResponse instances are equal
+        /// Returns true if DocumentAdvancedClassificationResult instances are equal
         /// </summary>
-        /// <param name="input">Instance of ExtractFieldsResponse to be compared</param>
+        /// <param name="input">Instance of DocumentAdvancedClassificationResult to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(ExtractFieldsResponse input)
+        public bool Equals(DocumentAdvancedClassificationResult input)
         {
             if (input == null)
                 return false;
@@ -103,9 +103,9 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
                     this.Successful.Equals(input.Successful))
                 ) && 
                 (
-                    this.Results == input.Results ||
-                    this.Results != null &&
-                    this.Results.SequenceEqual(input.Results)
+                    this.DocumentCategoryResult == input.DocumentCategoryResult ||
+                    (this.DocumentCategoryResult != null &&
+                    this.DocumentCategoryResult.Equals(input.DocumentCategoryResult))
                 );
         }
 
@@ -120,8 +120,8 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
                 int hashCode = 41;
                 if (this.Successful != null)
                     hashCode = hashCode * 59 + this.Successful.GetHashCode();
-                if (this.Results != null)
-                    hashCode = hashCode * 59 + this.Results.GetHashCode();
+                if (this.DocumentCategoryResult != null)
+                    hashCode = hashCode * 59 + this.DocumentCategoryResult.GetHashCode();
                 return hashCode;
             }
         }
