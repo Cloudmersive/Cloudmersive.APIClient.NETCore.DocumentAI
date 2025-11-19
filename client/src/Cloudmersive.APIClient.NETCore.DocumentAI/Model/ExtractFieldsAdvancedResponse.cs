@@ -33,10 +33,12 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
         /// </summary>
         /// <param name="successful">True if successful, false otherwise.</param>
         /// <param name="results">Field value results from the extraction operation.</param>
-        public ExtractFieldsAdvancedResponse(bool? successful = default(bool?), List<FieldAdvancedValue> results = default(List<FieldAdvancedValue>))
+        /// <param name="confidenceScore">Confidence score between 0.0 and 1.0, where values &gt; 0.8 indicate high confidence.</param>
+        public ExtractFieldsAdvancedResponse(bool? successful = default(bool?), List<FieldAdvancedValue> results = default(List<FieldAdvancedValue>), double? confidenceScore = default(double?))
         {
             this.Successful = successful;
             this.Results = results;
+            this.ConfidenceScore = confidenceScore;
         }
         
         /// <summary>
@@ -54,6 +56,13 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
         public List<FieldAdvancedValue> Results { get; set; }
 
         /// <summary>
+        /// Confidence score between 0.0 and 1.0, where values &gt; 0.8 indicate high confidence
+        /// </summary>
+        /// <value>Confidence score between 0.0 and 1.0, where values &gt; 0.8 indicate high confidence</value>
+        [DataMember(Name="ConfidenceScore", EmitDefaultValue=false)]
+        public double? ConfidenceScore { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -63,6 +72,7 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
             sb.Append("class ExtractFieldsAdvancedResponse {\n");
             sb.Append("  Successful: ").Append(Successful).Append("\n");
             sb.Append("  Results: ").Append(Results).Append("\n");
+            sb.Append("  ConfidenceScore: ").Append(ConfidenceScore).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -106,6 +116,11 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
                     this.Results == input.Results ||
                     this.Results != null &&
                     this.Results.SequenceEqual(input.Results)
+                ) && 
+                (
+                    this.ConfidenceScore == input.ConfidenceScore ||
+                    (this.ConfidenceScore != null &&
+                    this.ConfidenceScore.Equals(input.ConfidenceScore))
                 );
         }
 
@@ -122,6 +137,8 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
                     hashCode = hashCode * 59 + this.Successful.GetHashCode();
                 if (this.Results != null)
                     hashCode = hashCode * 59 + this.Results.GetHashCode();
+                if (this.ConfidenceScore != null)
+                    hashCode = hashCode * 59 + this.ConfidenceScore.GetHashCode();
                 return hashCode;
             }
         }
