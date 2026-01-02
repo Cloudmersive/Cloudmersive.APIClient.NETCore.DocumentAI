@@ -32,11 +32,13 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
         /// Initializes a new instance of the <see cref="FieldValue" /> class.
         /// </summary>
         /// <param name="fieldName">Name of the field (note that spaces will be replaced with underscore).</param>
-        /// <param name="fieldStringValue">String value of the field that was extractged from the document.</param>
-        public FieldValue(string fieldName = default(string), string fieldStringValue = default(string))
+        /// <param name="fieldStringValue">Primary or first string value of the field that was extractged from the document.</param>
+        /// <param name="additionalFieldStringValues">Additional values for this field when the same field is present with multiple values, for example, if two instances of the same form occur in the same document.</param>
+        public FieldValue(string fieldName = default(string), string fieldStringValue = default(string), List<string> additionalFieldStringValues = default(List<string>))
         {
             this.FieldName = fieldName;
             this.FieldStringValue = fieldStringValue;
+            this.AdditionalFieldStringValues = additionalFieldStringValues;
         }
         
         /// <summary>
@@ -47,11 +49,18 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
         public string FieldName { get; set; }
 
         /// <summary>
-        /// String value of the field that was extractged from the document
+        /// Primary or first string value of the field that was extractged from the document
         /// </summary>
-        /// <value>String value of the field that was extractged from the document</value>
+        /// <value>Primary or first string value of the field that was extractged from the document</value>
         [DataMember(Name="FieldStringValue", EmitDefaultValue=false)]
         public string FieldStringValue { get; set; }
+
+        /// <summary>
+        /// Additional values for this field when the same field is present with multiple values, for example, if two instances of the same form occur in the same document
+        /// </summary>
+        /// <value>Additional values for this field when the same field is present with multiple values, for example, if two instances of the same form occur in the same document</value>
+        [DataMember(Name="AdditionalFieldStringValues", EmitDefaultValue=false)]
+        public List<string> AdditionalFieldStringValues { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -63,6 +72,7 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
             sb.Append("class FieldValue {\n");
             sb.Append("  FieldName: ").Append(FieldName).Append("\n");
             sb.Append("  FieldStringValue: ").Append(FieldStringValue).Append("\n");
+            sb.Append("  AdditionalFieldStringValues: ").Append(AdditionalFieldStringValues).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -106,6 +116,11 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
                     this.FieldStringValue == input.FieldStringValue ||
                     (this.FieldStringValue != null &&
                     this.FieldStringValue.Equals(input.FieldStringValue))
+                ) && 
+                (
+                    this.AdditionalFieldStringValues == input.AdditionalFieldStringValues ||
+                    this.AdditionalFieldStringValues != null &&
+                    this.AdditionalFieldStringValues.SequenceEqual(input.AdditionalFieldStringValues)
                 );
         }
 
@@ -122,6 +137,8 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
                     hashCode = hashCode * 59 + this.FieldName.GetHashCode();
                 if (this.FieldStringValue != null)
                     hashCode = hashCode * 59 + this.FieldStringValue.GetHashCode();
+                if (this.AdditionalFieldStringValues != null)
+                    hashCode = hashCode * 59 + this.AdditionalFieldStringValues.GetHashCode();
                 return hashCode;
             }
         }
