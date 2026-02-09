@@ -1,12 +1,13 @@
 # Cloudmersive.APIClient.NETCore.DocumentAI - the C# library for the Document AI API
 
-Use next-generation AI to extract data, fields, insights and text from documents. Instantly.
+Extract structured data including named fields, tables, barcodes, classifications, and summaries from common document formats, scanned documents, and photos of documents using AI.  Also supports handwriting and low quality photos and scans, as well as digital document input.  Supports a wide range of languages, and is able to analyze and infer semantic structure from the visual layout for documents.
 
 This C# SDK is for the [Cloudmersive Document AI API](https://www.cloudmersive.com/document-ai-api):
 
 - API version: v1
-- SDK version: 1.1.1
+- SDK version: 1.1.2
 - Build package: io.swagger.codegen.languages.CSharpClientCodegen
+    For more information, please visit [https://www.cloudmersive.com](https://www.cloudmersive.com)
 
 <a name="frameworks-supported"></a>
 ## Frameworks supported
@@ -75,7 +76,7 @@ namespace Example
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://localhost*
+All URIs are relative to *https://api.cloudmersive.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -87,6 +88,7 @@ Class | Method | HTTP request | Description
 *ExtractApi* | [**ExtractClassificationAdvanced**](docs/ExtractApi.md#extractclassificationadvanced) | **POST** /document-ai/document/extract/classify/advanced | Extract Classification or Category from a Document using Advanced AI
 *ExtractApi* | [**ExtractFields**](docs/ExtractApi.md#extractfields) | **POST** /document-ai/document/extract/fields | Extract Field Values from a Document using AI
 *ExtractApi* | [**ExtractFieldsAdvanced**](docs/ExtractApi.md#extractfieldsadvanced) | **POST** /document-ai/document/extract/fields/advanced | Extract Field Values from a Document using Advanced AI
+*ExtractApi* | [**ExtractSplit**](docs/ExtractApi.md#extractsplit) | **POST** /document-ai/document/extract/split | Intelligently Split a Combined Document into Sub-Documents using AI
 *ExtractApi* | [**ExtractSummary**](docs/ExtractApi.md#extractsummary) | **POST** /document-ai/document/extract/summary | Extract Summary from a Document using AI
 *ExtractApi* | [**ExtractTables**](docs/ExtractApi.md#extracttables) | **POST** /document-ai/document/extract/tables | Extract Tables of Data from a Document using AI
 *ExtractApi* | [**ExtractText**](docs/ExtractApi.md#extracttext) | **POST** /document-ai/document/extract/text | Extract Text from a Document using AI
@@ -129,6 +131,8 @@ Class | Method | HTTP request | Description
  - [Model.FieldValue](docs/FieldValue.md)
  - [Model.PolicyRule](docs/PolicyRule.md)
  - [Model.PolicyRuleViolation](docs/PolicyRuleViolation.md)
+ - [Model.SplitDocumentResponse](docs/SplitDocumentResponse.md)
+ - [Model.SubDocument](docs/SubDocument.md)
  - [Model.SummarizeDocumentResponse](docs/SummarizeDocumentResponse.md)
  - [Model.TableResult](docs/TableResult.md)
  - [Model.TableResultCell](docs/TableResultCell.md)

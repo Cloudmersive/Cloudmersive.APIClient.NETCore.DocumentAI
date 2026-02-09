@@ -23,22 +23,20 @@ using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.DocumentAI.Client.Sw
 namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
 {
     /// <summary>
-    /// Result of classifying a document using AI
+    /// Result of splitting a document into sub-documents
     /// </summary>
     [DataContract]
-    public partial class DocumentAdvancedClassificationResult :  IEquatable<DocumentAdvancedClassificationResult>
+    public partial class SplitDocumentResponse :  IEquatable<SplitDocumentResponse>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DocumentAdvancedClassificationResult" /> class.
+        /// Initializes a new instance of the <see cref="SplitDocumentResponse" /> class.
         /// </summary>
         /// <param name="successful">True if successful, false otherwise.</param>
-        /// <param name="documentCategoryResult">Category applied to the document; if a category could not be identified then \&quot;other\&quot; will be used.  Spaces are replaced with underscores..</param>
-        /// <param name="confidenceScore">Confidence score between 0.0 and 1.0, where values &gt; 0.8 indicate high confidence.</param>
-        public DocumentAdvancedClassificationResult(bool? successful = default(bool?), string documentCategoryResult = default(string), double? confidenceScore = default(double?))
+        /// <param name="subDocuments">The sub-documents that were identified and extracted from the input document.</param>
+        public SplitDocumentResponse(bool? successful = default(bool?), List<SubDocument> subDocuments = default(List<SubDocument>))
         {
             this.Successful = successful;
-            this.DocumentCategoryResult = documentCategoryResult;
-            this.ConfidenceScore = confidenceScore;
+            this.SubDocuments = subDocuments;
         }
         
         /// <summary>
@@ -49,18 +47,11 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
         public bool? Successful { get; set; }
 
         /// <summary>
-        /// Category applied to the document; if a category could not be identified then \&quot;other\&quot; will be used.  Spaces are replaced with underscores.
+        /// The sub-documents that were identified and extracted from the input document
         /// </summary>
-        /// <value>Category applied to the document; if a category could not be identified then \&quot;other\&quot; will be used.  Spaces are replaced with underscores.</value>
-        [DataMember(Name="DocumentCategoryResult", EmitDefaultValue=false)]
-        public string DocumentCategoryResult { get; set; }
-
-        /// <summary>
-        /// Confidence score between 0.0 and 1.0, where values &gt; 0.8 indicate high confidence
-        /// </summary>
-        /// <value>Confidence score between 0.0 and 1.0, where values &gt; 0.8 indicate high confidence</value>
-        [DataMember(Name="ConfidenceScore", EmitDefaultValue=false)]
-        public double? ConfidenceScore { get; set; }
+        /// <value>The sub-documents that were identified and extracted from the input document</value>
+        [DataMember(Name="SubDocuments", EmitDefaultValue=false)]
+        public List<SubDocument> SubDocuments { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -69,10 +60,9 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class DocumentAdvancedClassificationResult {\n");
+            sb.Append("class SplitDocumentResponse {\n");
             sb.Append("  Successful: ").Append(Successful).Append("\n");
-            sb.Append("  DocumentCategoryResult: ").Append(DocumentCategoryResult).Append("\n");
-            sb.Append("  ConfidenceScore: ").Append(ConfidenceScore).Append("\n");
+            sb.Append("  SubDocuments: ").Append(SubDocuments).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -93,15 +83,15 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as DocumentAdvancedClassificationResult);
+            return this.Equals(input as SplitDocumentResponse);
         }
 
         /// <summary>
-        /// Returns true if DocumentAdvancedClassificationResult instances are equal
+        /// Returns true if SplitDocumentResponse instances are equal
         /// </summary>
-        /// <param name="input">Instance of DocumentAdvancedClassificationResult to be compared</param>
+        /// <param name="input">Instance of SplitDocumentResponse to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(DocumentAdvancedClassificationResult input)
+        public bool Equals(SplitDocumentResponse input)
         {
             if (input == null)
                 return false;
@@ -113,14 +103,9 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
                     this.Successful.Equals(input.Successful))
                 ) && 
                 (
-                    this.DocumentCategoryResult == input.DocumentCategoryResult ||
-                    (this.DocumentCategoryResult != null &&
-                    this.DocumentCategoryResult.Equals(input.DocumentCategoryResult))
-                ) && 
-                (
-                    this.ConfidenceScore == input.ConfidenceScore ||
-                    (this.ConfidenceScore != null &&
-                    this.ConfidenceScore.Equals(input.ConfidenceScore))
+                    this.SubDocuments == input.SubDocuments ||
+                    this.SubDocuments != null &&
+                    this.SubDocuments.SequenceEqual(input.SubDocuments)
                 );
         }
 
@@ -135,10 +120,8 @@ namespace Cloudmersive.APIClient.NETCore.DocumentAI.Model
                 int hashCode = 41;
                 if (this.Successful != null)
                     hashCode = hashCode * 59 + this.Successful.GetHashCode();
-                if (this.DocumentCategoryResult != null)
-                    hashCode = hashCode * 59 + this.DocumentCategoryResult.GetHashCode();
-                if (this.ConfidenceScore != null)
-                    hashCode = hashCode * 59 + this.ConfidenceScore.GetHashCode();
+                if (this.SubDocuments != null)
+                    hashCode = hashCode * 59 + this.SubDocuments.GetHashCode();
                 return hashCode;
             }
         }

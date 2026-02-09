@@ -1,6 +1,6 @@
 # Cloudmersive.APIClient.NETCore.DocumentAI.Api.RunBatchJobApi
 
-All URIs are relative to *https://localhost*
+All URIs are relative to *https://api.cloudmersive.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -178,7 +178,7 @@ namespace Example
 
             var apiInstance = new RunBatchJobApi();
             var recognitionMode = recognitionMode_example;  // string | Optional; Recognition mode - Advanced (default) provides the highest accuracy but slower speed, while Normal provides faster response but lower accuracy for low quality images (optional) 
-            var body = new AdvancedExtractFieldsRequest(); // AdvancedExtractFieldsRequest |  (optional) 
+            var body = new AdvancedExtractFieldsRequest(); // AdvancedExtractFieldsRequest | Input document and parameters (optional) 
 
             try
             {
@@ -200,7 +200,7 @@ namespace Example
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **recognitionMode** | **string**| Optional; Recognition mode - Advanced (default) provides the highest accuracy but slower speed, while Normal provides faster response but lower accuracy for low quality images | [optional] 
- **body** | [**AdvancedExtractFieldsRequest**](AdvancedExtractFieldsRequest.md)|  | [optional] 
+ **body** | [**AdvancedExtractFieldsRequest**](AdvancedExtractFieldsRequest.md)| Input document and parameters | [optional] 
 
 ### Return type
 
@@ -313,7 +313,7 @@ namespace Example
             // Configuration.Default.AddApiKeyPrefix("Apikey", "Bearer");
 
             var apiInstance = new RunBatchJobApi();
-            var asyncJobID = asyncJobID_example;  // string |  (optional) 
+            var asyncJobID = asyncJobID_example;  // string | Job ID for the batch job to get the status of (optional) 
 
             try
             {
@@ -334,7 +334,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **asyncJobID** | **string**|  | [optional] 
+ **asyncJobID** | **string**| Job ID for the batch job to get the status of | [optional] 
 
 ### Return type
 
