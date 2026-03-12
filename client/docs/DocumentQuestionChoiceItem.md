@@ -1,4 +1,6 @@
 # Cloudmersive.APIClient.NETCore.DocumentAI.Model.DocumentQuestionChoiceItem
+Possible response choice for a multiple-choice question
+
 ## Properties
 
 Name | Type | Description | Notes

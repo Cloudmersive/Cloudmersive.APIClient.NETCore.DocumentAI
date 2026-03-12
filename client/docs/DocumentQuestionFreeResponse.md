@@ -1,4 +1,6 @@
 # Cloudmersive.APIClient.NETCore.DocumentAI.Model.DocumentQuestionFreeResponse
+Free response question
+
 ## Properties
 
 Name | Type | Description | Notes

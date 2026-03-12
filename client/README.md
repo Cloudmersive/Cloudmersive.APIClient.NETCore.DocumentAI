@@ -5,26 +5,32 @@ Extract structured data including named fields, tables, barcodes, classification
 This C# SDK is for the [Cloudmersive Document AI API](https://www.cloudmersive.com/document-ai-api):
 
 - API version: v1
-- SDK version: 1.1.2
-- Build package: io.swagger.codegen.languages.CSharpClientCodegen
+- SDK version: 3.0.0
+- Generator version: 7.19.0
+- Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://www.cloudmersive.com](https://www.cloudmersive.com)
 
-<a name="frameworks-supported"></a>
+<a id="frameworks-supported"></a>
 ## Frameworks supported
-- .NET Core >=1.0
-- .NET Framework >=4.6
-- Mono/Xamarin >=vNext
-- UWP >=10.0
 
-<a name="dependencies"></a>
+<a id="dependencies"></a>
 ## Dependencies
-- FubarCoder.RestSharp.Portable.Core >=4.0.7
-- FubarCoder.RestSharp.Portable.HttpClient >=4.0.7
-- Newtonsoft.Json >=10.0.3
 
-<a name="installation"></a>
+- [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json/) - 13.0.2 or later
+- [JsonSubTypes](https://www.nuget.org/packages/JsonSubTypes/) - 1.8.0 or later
+- [System.ComponentModel.Annotations](https://www.nuget.org/packages/System.ComponentModel.Annotations) - 5.0.0 or later
+
+The DLLs included in the package may not be the latest version. We recommend using [NuGet](https://docs.nuget.org/consume/installing-nuget) to obtain the latest version of the packages:
+```
+Install-Package Newtonsoft.Json
+Install-Package JsonSubTypes
+Install-Package System.ComponentModel.Annotations
+```
+<a id="installation"></a>
 ## Installation
-Generate the DLL using your preferred tool
+Run the following command to generate the DLL
+- [Mac/Linux] `/bin/sh build.sh`
+- [Windows] `build.bat`
 
 Then include the DLL (under the `bin` folder) in the C# project, and use the namespaces:
 ```csharp
@@ -32,12 +38,64 @@ using Cloudmersive.APIClient.NETCore.DocumentAI.Api;
 using Cloudmersive.APIClient.NETCore.DocumentAI.Client;
 using Cloudmersive.APIClient.NETCore.DocumentAI.Model;
 ```
-<a name="getting-started"></a>
+<a id="packaging"></a>
+## Packaging
+
+A `.nuspec` is included with the project. You can follow the Nuget quickstart to [create](https://docs.microsoft.com/en-us/nuget/quickstart/create-and-publish-a-package#create-the-package) and [publish](https://docs.microsoft.com/en-us/nuget/quickstart/create-and-publish-a-package#publish-the-package) packages.
+
+This `.nuspec` uses placeholders from the `.csproj`, so build the `.csproj` directly:
+
+```
+nuget pack -Build -OutputDirectory out Cloudmersive.APIClient.NETCore.DocumentAI.csproj
+```
+
+Then, publish to a [local feed](https://docs.microsoft.com/en-us/nuget/hosting-packages/local-feeds) or [other host](https://docs.microsoft.com/en-us/nuget/hosting-packages/overview) and consume the new package via Nuget as usual.
+
+<a id="usage"></a>
+## Usage
+
+To use the API client with a HTTP proxy, setup a `System.Net.WebProxy`
+```csharp
+Configuration c = new Configuration();
+System.Net.WebProxy webProxy = new System.Net.WebProxy("http://myProxyUrl:80/");
+webProxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
+c.Proxy = webProxy;
+```
+
+### Connections
+Each ApiClass (properly the ApiClient inside it) will create an instance of HttpClient. It will use that for the entire lifecycle and dispose it when called the Dispose method.
+
+To better manager the connections it's a common practice to reuse the HttpClient and HttpClientHandler (see [here](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net) for details). To use your own HttpClient instance just pass it to the ApiClass constructor.
+
+```csharp
+HttpClientHandler yourHandler = new HttpClientHandler();
+HttpClient yourHttpClient = new HttpClient(yourHandler);
+var api = new YourApiClass(yourHttpClient, yourHandler);
+```
+
+If you want to use an HttpClient and don't have access to the handler, for example in a DI context in Asp.net Core when using IHttpClientFactory.
+
+```csharp
+HttpClient yourHttpClient = new HttpClient();
+var api = new YourApiClass(yourHttpClient);
+```
+You'll loose some configuration settings, the features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings. You need to either manually handle those in your setup of the HttpClient or they won't be available.
+
+Here an example of DI setup in a sample web project:
+
+```csharp
+services.AddHttpClient<YourApiClass>(httpClient =>
+   new PetApi(httpClient));
+```
+
+
+<a id="getting-started"></a>
 ## Getting Started
 
 ```csharp
-using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using Cloudmersive.APIClient.NETCore.DocumentAI.Api;
 using Cloudmersive.APIClient.NETCore.DocumentAI.Client;
 using Cloudmersive.APIClient.NETCore.DocumentAI.Model;
@@ -46,16 +104,21 @@ namespace Example
 {
     public class Example
     {
-        public void main()
+        public static void Main()
         {
 
+            Configuration config = new Configuration();
+            config.BasePath = "https://api.cloudmersive.com";
             // Configure API key authorization: Apikey
-            Configuration.Default.ApiKey.Add("Apikey", "YOUR_API_KEY");
+            config.ApiKey.Add("Apikey", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // Configuration.Default.ApiKeyPrefix.Add("Apikey", "Bearer");
+            // config.ApiKeyPrefix.Add("Apikey", "Bearer");
 
-            var apiInstance = new AnalyzeApi();
-            var body = new DocumentQuestionsRequest(); // DocumentQuestionsRequest | Input request, including document and questions (optional) 
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new AnalyzeApi(httpClient, config, httpClientHandler);
+            var body = new DocumentQuestionsRequest?(); // DocumentQuestionsRequest? | Input request, including document and questions (optional) 
 
             try
             {
@@ -63,9 +126,11 @@ namespace Example
                 DocumentQuestionAnswersResult result = apiInstance.AnswerQuestions(body);
                 Debug.WriteLine(result);
             }
-            catch (Exception e)
+            catch (ApiException e)
             {
                 Debug.Print("Exception when calling AnalyzeApi.AnswerQuestions: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
             }
 
         }
@@ -73,7 +138,7 @@ namespace Example
 }
 ```
 
-<a name="documentation-for-api-endpoints"></a>
+<a id="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
 All URIs are relative to *https://api.cloudmersive.com*
@@ -99,7 +164,7 @@ Class | Method | HTTP request | Description
 *RunBatchJobApi* | [**GetAsyncJobStatus**](docs/RunBatchJobApi.md#getasyncjobstatus) | **GET** /document-ai/document/batch-job/batch-job/status | Get the status and result of an Extract Document Batch Job
 
 
-<a name="documentation-for-models"></a>
+<a id="documentation-for-models"></a>
 ## Documentation for Models
 
  - [Model.AdvancedExtractClassificationRequest](docs/AdvancedExtractClassificationRequest.md)
@@ -139,10 +204,12 @@ Class | Method | HTTP request | Description
  - [Model.TableResultRow](docs/TableResultRow.md)
 
 
-<a name="documentation-for-authorization"></a>
+<a id="documentation-for-authorization"></a>
 ## Documentation for Authorization
 
-<a name="Apikey"></a>
+
+Authentication schemes defined for the API:
+<a id="Apikey"></a>
 ### Apikey
 
 - **Type**: API key

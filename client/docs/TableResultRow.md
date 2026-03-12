@@ -1,4 +1,6 @@
 # Cloudmersive.APIClient.NETCore.DocumentAI.Model.TableResultRow
+Row of a table extracted from a document
+
 ## Properties
 
 Name | Type | Description | Notes

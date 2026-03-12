@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.3</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo><!-- setting GenerateAssemblyInfo to false causes this bug https://github.com/dotnet/project-system/issues/3934 -->
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>Cloudmersive.APIClient.NETCore.DocumentAI</AssemblyName>
     <PackageId>Cloudmersive.APIClient.NETCore.DocumentAI</PackageId>
     <OutputType>Library</OutputType>
@@ -10,19 +11,24 @@
     <AssemblyTitle>Cloudmersive Document AI API Client</AssemblyTitle>
     <Description>Document AI APIs let you use AI and Machine Learning to extract data, categories, summaries and insight from free-form text documents.</Description>
     <Copyright>No Copyright</Copyright>
-    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <RootNamespace>Cloudmersive.APIClient.NETCore.DocumentAI</RootNamespace>
-    <Version>1.1.2</Version>
-  <PackageIconUrl>https://cloudmersive.com/images/cmsdk_core.png</PackageIconUrl><PackageLicenseExpression>Apache-2.0</PackageLicenseExpression><PackageProjectUrl>https://cloudmersive.com/document-ai-api</PackageProjectUrl></PropertyGroup>
+    <Version>3.0.0</Version>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cloudmersive.APIClient.NETCore.DocumentAI.xml</DocumentationFile>
+    <RepositoryUrl>https://github.com/GIT_USER_ID/GIT_REPO_ID.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>Minor update</PackageReleaseNotes>
+    <Nullable>annotations</Nullable>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+  </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FubarCoder.RestSharp.Portable.Core" Version="4.0.7" />
-    <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.7" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="JsonSubTypes" Version="1.2.0" />
+    <PackageReference Include="JsonSubTypes" Version="2.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Polly" Version="8.1.0" />
   </ItemGroup>
 
-
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
 </Project>

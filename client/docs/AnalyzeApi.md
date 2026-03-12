@@ -2,15 +2,14 @@
 
 All URIs are relative to *https://api.cloudmersive.com*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**AnswerQuestions**](AnalyzeApi.md#answerquestions) | **POST** /document-ai/document/analyze/answer-questions | Answer Questions about a Document in a structured way using Advanced AI
-[**ApplyRules**](AnalyzeApi.md#applyrules) | **POST** /document-ai/document/analyze/enforce-policy | Enforce Policies to a Document to allow or block it using Advanced AI
+| Method | HTTP request | Description |
+|--------|--------------|-------------|
+| [**AnswerQuestions**](AnalyzeApi.md#answerquestions) | **POST** /document-ai/document/analyze/answer-questions | Answer Questions about a Document in a structured way using Advanced AI |
+| [**ApplyRules**](AnalyzeApi.md#applyrules) | **POST** /document-ai/document/analyze/enforce-policy | Enforce Policies to a Document to allow or block it using Advanced AI |
 
-
-<a name="answerquestions"></a>
+<a id="answerquestions"></a>
 # **AnswerQuestions**
-> DocumentQuestionAnswersResult AnswerQuestions (DocumentQuestionsRequest body = null)
+> DocumentQuestionAnswersResult AnswerQuestions (DocumentQuestionsRequest? body = null)
 
 Answer Questions about a Document in a structured way using Advanced AI
 
@@ -18,8 +17,9 @@ Answer boolean (yes/no), multiple-choice and free-response questions about the c
 
 ### Example
 ```csharp
-using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using Cloudmersive.APIClient.NETCore.DocumentAI.Api;
 using Cloudmersive.APIClient.NETCore.DocumentAI.Client;
 using Cloudmersive.APIClient.NETCore.DocumentAI.Model;
@@ -28,15 +28,20 @@ namespace Example
 {
     public class AnswerQuestionsExample
     {
-        public void main()
+        public static void Main()
         {
+            Configuration config = new Configuration();
+            config.BasePath = "https://api.cloudmersive.com";
             // Configure API key authorization: Apikey
-            Configuration.Default.AddApiKey("Apikey", "YOUR_API_KEY");
+            config.AddApiKey("Apikey", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // Configuration.Default.AddApiKeyPrefix("Apikey", "Bearer");
+            // config.AddApiKeyPrefix("Apikey", "Bearer");
 
-            var apiInstance = new AnalyzeApi();
-            var body = new DocumentQuestionsRequest(); // DocumentQuestionsRequest | Input request, including document and questions (optional) 
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new AnalyzeApi(httpClient, config, httpClientHandler);
+            var body = new DocumentQuestionsRequest?(); // DocumentQuestionsRequest? | Input request, including document and questions (optional) 
 
             try
             {
@@ -44,20 +49,42 @@ namespace Example
                 DocumentQuestionAnswersResult result = apiInstance.AnswerQuestions(body);
                 Debug.WriteLine(result);
             }
-            catch (Exception e)
+            catch (ApiException  e)
             {
-                Debug.Print("Exception when calling AnalyzeApi.AnswerQuestions: " + e.Message );
+                Debug.Print("Exception when calling AnalyzeApi.AnswerQuestions: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
             }
         }
     }
 }
 ```
 
+#### Using the AnswerQuestionsWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Answer Questions about a Document in a structured way using Advanced AI
+    ApiResponse<DocumentQuestionAnswersResult> response = apiInstance.AnswerQuestionsWithHttpInfo(body);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling AnalyzeApi.AnswerQuestionsWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**DocumentQuestionsRequest**](DocumentQuestionsRequest.md)| Input request, including document and questions | [optional] 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **body** | [**DocumentQuestionsRequest?**](DocumentQuestionsRequest?.md) | Input request, including document and questions | [optional]  |
 
 ### Return type
 
@@ -69,14 +96,20 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: text/plain, application/json, text/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="applyrules"></a>
+<a id="applyrules"></a>
 # **ApplyRules**
-> DocumentPolicyResult ApplyRules (DocumentPolicyRequest body = null)
+> DocumentPolicyResult ApplyRules (DocumentPolicyRequest? body = null)
 
 Enforce Policies to a Document to allow or block it using Advanced AI
 
@@ -84,8 +117,9 @@ Enforce Policies to a Document to allow or block it using Advanced AI.  Input do
 
 ### Example
 ```csharp
-using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using Cloudmersive.APIClient.NETCore.DocumentAI.Api;
 using Cloudmersive.APIClient.NETCore.DocumentAI.Client;
 using Cloudmersive.APIClient.NETCore.DocumentAI.Model;
@@ -94,15 +128,20 @@ namespace Example
 {
     public class ApplyRulesExample
     {
-        public void main()
+        public static void Main()
         {
+            Configuration config = new Configuration();
+            config.BasePath = "https://api.cloudmersive.com";
             // Configure API key authorization: Apikey
-            Configuration.Default.AddApiKey("Apikey", "YOUR_API_KEY");
+            config.AddApiKey("Apikey", "YOUR_API_KEY");
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // Configuration.Default.AddApiKeyPrefix("Apikey", "Bearer");
+            // config.AddApiKeyPrefix("Apikey", "Bearer");
 
-            var apiInstance = new AnalyzeApi();
-            var body = new DocumentPolicyRequest(); // DocumentPolicyRequest | Input request, including document and policy rules (optional) 
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new AnalyzeApi(httpClient, config, httpClientHandler);
+            var body = new DocumentPolicyRequest?(); // DocumentPolicyRequest? | Input request, including document and policy rules (optional) 
 
             try
             {
@@ -110,20 +149,42 @@ namespace Example
                 DocumentPolicyResult result = apiInstance.ApplyRules(body);
                 Debug.WriteLine(result);
             }
-            catch (Exception e)
+            catch (ApiException  e)
             {
-                Debug.Print("Exception when calling AnalyzeApi.ApplyRules: " + e.Message );
+                Debug.Print("Exception when calling AnalyzeApi.ApplyRules: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
             }
         }
     }
 }
 ```
 
+#### Using the ApplyRulesWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Enforce Policies to a Document to allow or block it using Advanced AI
+    ApiResponse<DocumentPolicyResult> response = apiInstance.ApplyRulesWithHttpInfo(body);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling AnalyzeApi.ApplyRulesWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**DocumentPolicyRequest**](DocumentPolicyRequest.md)| Input request, including document and policy rules | [optional] 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **body** | [**DocumentPolicyRequest?**](DocumentPolicyRequest?.md) | Input request, including document and policy rules | [optional]  |
 
 ### Return type
 
@@ -135,8 +196,14 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: text/plain, application/json, text/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

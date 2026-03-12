@@ -1,4 +1,6 @@
 # Cloudmersive.APIClient.NETCore.DocumentAI.Model.FieldValue
+Field value result of extracting fields from a document
+
 ## Properties
 
 Name | Type | Description | Notes

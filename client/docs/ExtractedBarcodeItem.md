@@ -1,4 +1,6 @@
 # Cloudmersive.APIClient.NETCore.DocumentAI.Model.ExtractedBarcodeItem
+Extracted barcode result
+
 ## Properties
 
 Name | Type | Description | Notes

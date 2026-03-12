@@ -1,4 +1,6 @@
 # Cloudmersive.APIClient.NETCore.DocumentAI.Model.DocumentQuestionBoolean
+Boolean document question
+
 ## Properties
 
 Name | Type | Description | Notes
